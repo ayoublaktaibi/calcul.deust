@@ -1,0 +1,285 @@
+body {
+    font-family: 'Montserrat', sans-serif;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    background-color: #f0f0f0;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.container {
+    display: flex;
+    overflow-x: hidden;
+    background-color: #fff;
+    flex: 3;
+    max-height: 100%;
+    margin-right: 25%;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 20px;
+    gap: 30px;
+    box-sizing: border-box;
+}
+
+.container h1 {
+    position: absolute;
+    top: 10px;
+    left: 30px;
+}
+
+.semester {
+    padding: 20px;
+    background: linear-gradient(135deg, #ffffff, transparent, #5ab8ff12, transparent);
+    border: 1px solid #ccc; /* Bordure légère */
+    border-radius: 10px;
+    min-width: 500px;
+    height: auto;
+    flex: 0 0 auto; /* Empêche la réduction */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-sizing: border-box;
+}
+
+.semester-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.semester-header .semester-average {
+    font-size: 18px;
+    color: #000;
+}
+
+
+.semester-header h2 {
+    font-size: 24px;
+    color: #0000c6; /* Couleur de titre */
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+
+thead {
+    background-color: #0000c6;
+    color: #fff;
+}
+
+th, td {
+    padding: 10px 30px 10px 10px;
+    text-align: left;
+    border: 1px solid #ddd;
+}
+
+tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.summary {
+    background-color: #fcfcfc;
+    text-align: left;
+    flex: 1;
+    position: fixed;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 25%;
+    padding: 20px;
+    box-sizing: border-box;
+    box-shadow: -2px 0 8px rgba(0, 0, 0, 0.1);
+}
+
+.summary h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.summary table {
+    width: 100%;
+    border: 1px solid #000;
+}
+
+.summary th {
+    background-color: #000;
+    color: #fff;
+}
+
+.summary td {
+    border: 1px solid #000;
+}
+
+.summary .result {
+    margin-top: 100px;
+}
+
+.summary .result h3 {
+    margin-bottom: 30px;
+}
+
+.summary .valid {
+    background-color: #00bfa5;
+    color: #fff;
+    width: 100%;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.summary .score {
+    border: 1px solid #00bfa5;
+    color: #00bfa5;
+    background: transparent;
+    width: 100%;
+    padding: 10px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.scroll-buttons {
+    position: fixed;
+    bottom: 25px;
+    left: 37.5%;
+    transform: translateX(-50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    z-index: 999;
+}
+
+.scroll-btn {
+    background-color: transparent;
+    color: #0000c6;
+    border: none;
+    cursor: pointer;
+    font-size: 20px;
+    margin: 0 10px;
+    padding-top: 6px;
+}
+
+.scroll-btn i {
+    font-size: 24px;
+}
+
+.semester-btn {
+    width: 12px; /* Ajusté pour un diamètre légèrement plus grand */
+    height: 12px; /* Ajusté pour un diamètre légèrement plus grand */
+    background-color: #ededed;
+    border-radius: 50%;
+    margin: 0 5px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.semester-btn.active {
+    background-color: #0000c6; /* Blue */
+}
+
+.alert {
+    background-color: #f8d7da; /* Couleur de fond */
+    color: #721c24; /* Couleur du texte */
+    border: 1px solid #f5c6cb; /* Bordure */
+    animation: blink 0.3s 3, fadeOut 1.5s forwards;
+    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}
+
+.alert:focus {
+    outline: none; /* Supprime le focus */
+}
+
+@keyframes blink {
+    0%, 100% {
+        background-color: #f8d7da;
+        border-color: #f5c6cb;
+        color: #721c24;
+    }
+    50% {
+        background-color: #f1b0b7;
+        border-color: #f1b0b7;
+        color: #721c24;
+    }
+}
+
+@keyframes fadeOut {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+@media (max-width: 768px) {
+    /* Pour les appareils mobiles avec une largeur maximale de 768px */
+    .container {
+        flex-direction: column;
+        margin-right: 0;
+        padding: 10px;
+        gap: 15px;
+        max-width: 100%; /* Empêche le dépassement de la largeur de la page */
+        margin-bottom: 0; /* Enlève l'espace en dessous */
+    }
+
+    .container h1 {
+        position: static;
+        font-size: 23px;
+        margin-bottom: 10px;
+    }
+
+    .semester {
+        min-width: 100%; /* Occupe toute la largeur disponible */
+        flex: 0; /* Empêche la réduction */
+        padding: 10px; /* Ajuste le padding pour les appareils mobiles */
+    }
+
+    .scroll-buttons {
+        display: none;
+    }
+
+    .scroll-btn, .semester-btn {
+        font-size: 18px;
+    }
+
+    .scroll-btn {
+        padding-top: 4px;
+    }
+
+    .summary {
+        position: static;
+        width: 100%;
+        margin-top: 0; /* Enlève l'espace au-dessus */
+        padding-top: 0; /* Enlève l'espace de padding au-dessus */
+        padding-bottom: 0; /* Enlève l'espace de padding en dessous */
+    }
+
+    .summary h2 {
+        display: none;
+    }
+    
+    .summary table {
+        display: none;
+    }
+
+    .summary .result {
+        margin-top: 0;
+    }
+}
