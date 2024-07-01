@@ -38,11 +38,11 @@ body {
 .semester {
     padding: 20px;
     background: linear-gradient(135deg, #ffffff, transparent, #5ab8ff12, transparent);
-    border: 1px solid #ccc; /* Bordure légère */
+    border: 1px solid #ccc;
     border-radius: 10px;
     min-width: 500px;
     height: auto;
-    flex: 0 0 auto; /* Empêche la réduction */
+    flex: 0 0 auto;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -60,10 +60,9 @@ body {
     color: #000;
 }
 
-
 .semester-header h2 {
     font-size: 24px;
-    color: #0000c6; /* Couleur de titre */
+    color: #0000c6;
 }
 
 table {
@@ -180,8 +179,8 @@ tbody tr:nth-child(even) {
 }
 
 .semester-btn {
-    width: 12px; /* Ajusté pour un diamètre légèrement plus grand */
-    height: 12px; /* Ajusté pour un diamètre légèrement plus grand */
+    width: 12px;
+    height: 12px;
     background-color: #ededed;
     border-radius: 50%;
     margin: 0 5px;
@@ -191,19 +190,19 @@ tbody tr:nth-child(even) {
 }
 
 .semester-btn.active {
-    background-color: #0000c6; /* Blue */
+    background-color: #0000c6;
 }
 
 .alert {
-    background-color: #f8d7da; /* Couleur de fond */
-    color: #721c24; /* Couleur du texte */
-    border: 1px solid #f5c6cb; /* Bordure */
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
     animation: blink 0.3s 3, fadeOut 1.5s forwards;
     transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
 }
 
 .alert:focus {
-    outline: none; /* Supprime le focus */
+    outline: none;
 }
 
 @keyframes blink {
@@ -229,14 +228,13 @@ tbody tr:nth-child(even) {
 }
 
 @media (max-width: 768px) {
-    /* Pour les appareils mobiles avec une largeur maximale de 768px */
     .container {
         flex-direction: column;
         margin-right: 0;
         padding: 10px;
         gap: 15px;
-        max-width: 100%; /* Empêche le dépassement de la largeur de la page */
-        margin-bottom: 0; /* Enlève l'espace en dessous */
+        max-width: 100%;
+        margin-bottom: 0;
     }
 
     .container h1 {
@@ -246,9 +244,9 @@ tbody tr:nth-child(even) {
     }
 
     .semester {
-        min-width: 100%; /* Occupe toute la largeur disponible */
-        flex: 0; /* Empêche la réduction */
-        padding: 10px; /* Ajuste le padding pour les appareils mobiles */
+        min-width: 100%;
+        flex: 0;
+        padding: 10px;
     }
 
     .scroll-buttons {
@@ -266,15 +264,15 @@ tbody tr:nth-child(even) {
     .summary {
         position: static;
         width: 100%;
-        margin-top: 0; /* Enlève l'espace au-dessus */
-        padding-top: 0; /* Enlève l'espace de padding au-dessus */
-        padding-bottom: 0; /* Enlève l'espace de padding en dessous */
+        margin-top: 0;
+        padding-top: 0;
+        padding-bottom: 0;
     }
 
     .summary h2 {
         display: none;
     }
-    
+
     .summary table {
         display: none;
     }
