@@ -1,1 +1,133 @@
-document.addEventListener('DOMContentLoaded',()=>{const e=document.querySelectorAll('.semester'),t=document.querySelector('.summary table tbody'),n=document.querySelector('.score'),s=document.querySelector('.result button.valid'),l=e=>{if(0===e.length)return 0;const t=e.filter(e=>{const t=parseFloat(e);return!isNaN(t)&&t>=0&&t<=20});const n=t.reduce((e,t)=>e+parseFloat(t),0);return t.length>0?n/t.length:0},c=e=>{const t=e.querySelectorAll('.note-cell'),n=Array.from(t).map(e=>e.textContent.trim()),s=l(n).toFixed(2),c=t=>{const e=t.querySelector(`tr:nth-child(${t+1})`);e.querySelector('td:nth-child(2)').textContent=s;const l=l(),c=c();u(l),p()},u=parseFloat(l()).toFixed(2);n.textContent=u,d()},u=e=>{const t=parseFloat(e.textContent.trim()),n=e.previousElementSibling;if(t<0||isNaN(t)||t>20)return void(e.textContent='',e.classList.add('alert'),setTimeout(()=>{e.classList.remove('alert'),n.textContent='',c(e)},1500));t>=0&&t<5?n.textContent='Ajournée':t>=5&&t<10?n.textContent='Non validé':t>=10&&t<=20&&(n.textContent='Validé'),c(e)},d=e=>{let t=0,n=0;e.forEach(e=>{const s=e.querySelectorAll('.note-cell'),l=Array.from(s).map(e=>parseFloat(e.textContent.trim())).filter(e=>!isNaN(e)&&e>=0&&e<=20),c=l.reduce((e,t)=>e+t,0);t+=c,n+=l.length});return n>0?(t/n).toFixed(2):'0'},document.getElementById('prev').addEventListener('click',()=>{const e=document.querySelector('.semester-btn.active');e&&e.previousElementSibling&&e.previousElementSibling.click()}),document.getElementById('next').addEventListener('click',()=>{const e=document.querySelector('.semester-btn.active');e&&e.nextElementSibling&&e.nextElementSibling.click()}),document.querySelectorAll('.semester-btn').forEach(e=>{e.addEventListener('click',function(){const t=parseInt(this.getAttribute('data-semester'),10)-1,n=1.03*document.querySelector('.semester').offsetWidth*t;document.querySelector('.container').scrollTo({left:n,behavior:'smooth'}),document.querySelectorAll('.semester-btn').forEach(e=>{e.classList.remove('active')}),this.classList.add('active')})}),document.querySelector('.semester-btn[data-semester="1"]').click(),n.textContent=d(),p()},p=()=>{const e=parseFloat(n.textContent);isNaN(e)?s.textContent='':e>=10?s.textContent='Validé':e>=5?s.textContent='Non validé':s.textContent='Ajournée'}
+document.addEventListener('DOMContentLoaded', () => {
+    const semesters = document.querySelectorAll('.semester');
+    const summaryTable = document.querySelector('.summary table tbody');
+    const scoreButton = document.querySelector('.score');
+    const resultButton = document.querySelector('.result button.valid');
+
+    function calculateAverage(arr) {
+        if (arr.length === 0) return 0;
+        const validNotes = arr.filter(note => {
+            const parsedNote = parseFloat(note);
+            return !isNaN(parsedNote) && parsedNote >= 0 && parsedNote <= 20;
+        });
+        const sum = validNotes.reduce((acc, curr) => acc + parseFloat(curr), 0);
+        return validNotes.length > 0 ? sum / validNotes.length : 0;
+    }
+
+    function updateSemesterAverage(semesterIndex) {
+        const semester = semesters[semesterIndex];
+        const noteCells = semester.querySelectorAll('.note-cell');
+        const notes = Array.from(noteCells).map(cell => cell.textContent.trim());
+        const average = calculateAverage(notes).toFixed(2);
+
+        const summaryRow = summaryTable.querySelector(`tr:nth-child(${semesterIndex + 1})`);
+        summaryRow.querySelector('td:nth-child(2)').textContent = average;
+
+        const semesterAverageSpan = semester.querySelector('.semester-average');
+        semesterAverageSpan.textContent = `Moyenne: ${average}`;
+
+        const overallAverage = calculateOverallAverage();
+        scoreButton.textContent = overallAverage;
+
+        updateResultStatus();
+    }
+
+    function handleNoteInput(cell, semesterIndex) {
+        const parsedValue = parseFloat(cell.textContent.trim());
+        const resultCell = cell.previousElementSibling;
+
+        if (parsedValue < 0 || isNaN(parsedValue) || parsedValue > 20) {
+            cell.textContent = '';
+            cell.classList.add('alert');
+            setTimeout(() => {
+                cell.classList.remove('alert');
+                resultCell.textContent = '';
+                updateSemesterAverage(semesterIndex);
+            }, 1500);
+        } else {
+            if (parsedValue >= 0 && parsedValue < 5) {
+                resultCell.textContent = 'Ajournée';
+            } else if (parsedValue >= 5 && parsedValue < 10) {
+                resultCell.textContent = 'Non validé';
+            } else if (parsedValue >= 10 && parsedValue <= 20) {
+                resultCell.textContent = 'Validé';
+            }
+            updateSemesterAverage(semesterIndex);
+        }
+    }
+
+    semesters.forEach((semester, index) => {
+        const noteCells = semester.querySelectorAll('.note-cell');
+        noteCells.forEach(cell => {
+            cell.addEventListener('input', () => {
+                handleNoteInput(cell, index);
+            });
+        });
+    });
+
+    function calculateOverallAverage() {
+        let totalSum = 0;
+        let totalCount = 0;
+
+        semesters.forEach((semester) => {
+            const noteCells = semester.querySelectorAll('.note-cell');
+            const notes = Array.from(noteCells).map(cell => parseFloat(cell.textContent.trim())).filter(note => !isNaN(note) && note >= 0 && note <= 20);
+            const sum = notes.reduce((acc, curr) => acc + curr, 0);
+            totalSum += sum;
+            totalCount += notes.length;
+        });
+
+        return totalCount > 0 ? (totalSum / totalCount).toFixed(2) : '0';
+    }
+
+    document.getElementById('prev').addEventListener('click', function() {
+        const activeSemester = document.querySelector('.semester-btn.active');
+        if (activeSemester && activeSemester.previousElementSibling) {
+            activeSemester.previousElementSibling.click();
+        }
+    });
+
+    document.getElementById('next').addEventListener('click', function() {
+        const activeSemester = document.querySelector('.semester-btn.active');
+        if (activeSemester && activeSemester.nextElementSibling) {
+            activeSemester.nextElementSibling.click();
+        }
+    });
+
+    document.querySelectorAll('.semester-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const semesterIndex = parseInt(this.getAttribute('data-semester'), 10) - 1;
+            const semesterWidth = document.querySelector('.semester').offsetWidth * 1.03;
+            const scrollAmount = semesterIndex * semesterWidth;
+
+            document.querySelector('.container').scrollTo({
+                left: scrollAmount,
+                behavior: 'smooth'
+            });
+
+            document.querySelectorAll('.semester-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            this.classList.add('active');
+        });
+    });
+
+    document.querySelector('.semester-btn[data-semester="1"]').click();
+
+    scoreButton.textContent = calculateOverallAverage();
+    updateResultStatus();
+
+    function updateResultStatus() {
+        const overallAverage = parseFloat(scoreButton.textContent);
+
+        if (isNaN(overallAverage)) {
+            resultButton.textContent = '';
+        } else if (overallAverage >= 10) {
+            resultButton.textContent = 'Validé';
+        } else if (overallAverage >= 5) {
+            resultButton.textContent = 'Non validé';
+        } else {
+            resultButton.textContent = 'Ajournée';
+        }
+    }
+});
